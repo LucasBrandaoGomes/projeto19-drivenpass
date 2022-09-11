@@ -1,4 +1,6 @@
 import joi from "joi";
+import { CredentialBodyData } from "../types/credentialTypes";
+import { NoteBodyData } from "../types/notesTypes";
 
 const signUpSchema = joi.object({
   email: joi.string().email().required(),
@@ -14,7 +16,7 @@ const signInSchema = joi.object({
   password: joi.string().required(),
 });
 
-const newCredentialSchema = joi.object({
+const newCredentialSchema = joi.object<CredentialBodyData>({
     username: joi.string().required(),
     password: joi.string().required(),
     url: joi.string().uri().required(),
@@ -22,7 +24,7 @@ const newCredentialSchema = joi.object({
 
 });
 
-const newNoteSchema = joi.object({
+const newNoteSchema = joi.object<NoteBodyData>({
     title: joi.string().max(50).required(),
     text: joi.string().max(1000).required()
 });
