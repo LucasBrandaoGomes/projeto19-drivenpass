@@ -11,7 +11,7 @@ async function checkIfEmailRegistered(email:string) {
     }
 }
 
-function checkIfUserExists(result: Users, password:string) {
+function checkIfUserExists(result: Users) {
     if(result === null){
         throw { code: "NotFound", message: "Invalid Acconout"}
     }
@@ -33,7 +33,7 @@ export async function newUser(email:string, password:string) {
 export async function newLogin(email:string, password:string) {
     const secretKey = process.env.JWT_SECRET;
     const result = await userRepository.findUserByEmail(email)
-    checkIfUserExists(result, password)
+    checkIfUserExists(result)
     checkPassword(result, password)
     const { id } = result
     const token = jwt.sign(String(id), secretKey)

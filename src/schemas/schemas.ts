@@ -1,4 +1,5 @@
 import joi from "joi";
+import { CardBodyData } from "../types/cardTypes";
 import { CredentialBodyData } from "../types/credentialTypes";
 import { NoteBodyData } from "../types/notesTypes";
 
@@ -29,16 +30,15 @@ const newNoteSchema = joi.object<NoteBodyData>({
     text: joi.string().max(1000).required()
 });
 
-const newCardSchema = joi.object({
+const newCardSchema = joi.object<CardBodyData>({
     number: joi.string().length(16).required(),
     title: joi.string().required(),
     name: joi.string().required(),
     securityCode: joi.string().length(3).required(),
-    expirationDate: joi.string().required(),
+    expirationDate: joi.string().pattern(/^((0[1-9])|(1[0-2]))\/(\d{4})$/, { name: "expirationDate" }).required(),
     password: joi.string().required(),
-    isVirtual: joi.boolean().valid("true", "false"),
-    type: joi.string().valid("debit", "credit", "debitAndCredit").required(),
-    employeeId: joi.number().integer().greater(0).required(),
+    isVirtual: joi.boolean().strict(),
+    cardType: joi.string().valid("debit", "credit", "debitAndCredit").required(),
   });
 
 const newWifiSchema = joi.object({

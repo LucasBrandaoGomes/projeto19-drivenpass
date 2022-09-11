@@ -14,7 +14,6 @@ export async function findUserCredential(userId:number, title: string){
     }
 
 export async function insert(data: CredentialInsertData){
-    console.log(data)
     await prisma.credentials.create({data});
 }
 
@@ -28,4 +27,4 @@ export async function findCredential(userId:number, credentialId:number): Promis
 
 export async function deleteCredentialById(credentialId: number) {
     await prisma.credentials.delete({ where: { id: credentialId } });
-  }
+}
