@@ -9,21 +9,13 @@ export async function checkAuthentication(req: Request, res: Response, next: Nex
     throw { code: "Unauthorized", message: "Missing token" };
   }
 
-  const data = jwt.verify(token, process.env.JWT_SECRET);
-
-  if(!data){
-    throw { code: "Unauthorized", message: "Invalid token" };
+  try{
+    const userId = jwt.verify(token, process.env.JWT_SECRET);
+  
+    res.locals.userId = userId;
+  }catch (err) {
+    return res.status(401).send("Invalid token");
   }
-
-  res.locals.data = data;
-
-//   try {
-//     const data = jwt.verify(token, process.env.JWT_SECRET);
-
-//     res.locals.data = data;
-//   } catch (err) {
-//     return res.status(401).send("Invalid token");
-//   }
 
   next();
 }

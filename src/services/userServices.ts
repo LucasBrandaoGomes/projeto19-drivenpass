@@ -2,7 +2,6 @@ import * as userRepository from '../repositories/userRepository.js'
 import bcrypt from "bcrypt";
 import  jwt  from 'jsonwebtoken';
 import { Users } from '@prisma/client';
-import { checkAuthentication } from '../middlewares/tokenValidationMiddleware.js';
 //import { IUser } from '../types/userTypes.js';
 
 async function checkIfEmailRegistered(email:string) {
@@ -37,6 +36,6 @@ export async function newLogin(email:string, password:string) {
     checkIfUserExists(result, password)
     checkPassword(result, password)
     const { id } = result
-    const token = jwt.sign(String(id), secretKey)//, { expiresIn: TIME_60M });
+    const token = jwt.sign(String(id), secretKey)
     return token
 }
