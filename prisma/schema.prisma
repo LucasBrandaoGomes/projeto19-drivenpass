@@ -45,15 +45,19 @@ model Notes {
 
 model Cards {
   id              Int @id @default(autoincrement())
-  user Users      @relation(fields: [userId], references: [id])
-  userId          Int
   title           String
-  number          String
+  number          String  @db.VarChar(16)
+  name            String
   securityCode    String
   expirationDate  String
   password        String
-  isVirtual       Boolean
+  isVirtual       Boolean @default(false)
   cardType        Type
+  Users Users      @relation(fields: [userId], references: [id])
+  userId          Int
+
+  @@unique([title, userId])
+
 }
 
 enum Type {
