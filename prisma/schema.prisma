@@ -68,9 +68,11 @@ enum Type {
 
 model Wifis {
   id              Int @id @default(autoincrement())
-  user Users      @relation(fields: [userId], references: [id])
-  userId          Int
   title           String
   networkName     String
   password        String
+  Users Users      @relation(fields: [userId], references: [id])
+  userId          Int
+
+  @@unique([title, userId])
 }
