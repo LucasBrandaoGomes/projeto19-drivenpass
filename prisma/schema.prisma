@@ -29,6 +29,8 @@ model Credentials {
   username  String
   password  String
   title     String
+
+  @@unique([userId, title])
 }
 
 model Notes {

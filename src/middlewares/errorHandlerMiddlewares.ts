@@ -19,6 +19,7 @@ export default function errorHandlingMiddleware(error, req: Request, res: Respon
   if(code === "Forbidden"){
     return res.status(403).send(message)
   }
+  console.log(message)
   return res.status(500).send('Internal server error')
 
 }
