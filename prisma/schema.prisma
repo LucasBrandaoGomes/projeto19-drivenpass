@@ -23,23 +23,24 @@ model Users {
 
 model Credentials {
   id        Int     @id @default(autoincrement())
-  user Users  @relation(fields: [userId], references: [id])
-  userId    Int
   url       String
   username  String
   password  String
   title     String
+  Users Users  @relation(fields: [userId], references: [id])
+  userId    Int
 
   @@unique([userId, title])
 }
 
 model Notes {
   id          Int @id @default(autoincrement())
-  user Users  @relation(fields: [userId], references: [id])
+  title       String @db.VarChar(50)
+  text        String @db.VarChar(1000)
+  Users Users  @relation(fields: [userId], references: [id])
   userId      Int
-  title       String
-  text        String
 
+  @@unique([title, userId])
 }
 
 model Cards {
