@@ -2,6 +2,7 @@ import joi from "joi";
 import { CardBodyData } from "../types/cardTypes";
 import { CredentialBodyData } from "../types/credentialTypes";
 import { NoteBodyData } from "../types/notesTypes";
+import { DocumentBodyData } from "../types/docTypes";
 
 const signUpSchema = joi.object({
   email: joi.string().email().required(),
@@ -46,5 +47,14 @@ const newWifiSchema = joi.object({
     password: joi.string().required(),
     title: joi.string().required()
   });
-  
-export { signUpSchema, signInSchema, newCredentialSchema, newNoteSchema, newCardSchema, newWifiSchema};
+
+const newDocumentSchema = joi.object<DocumentBodyData>({
+  name: joi.string().required(),
+  number: joi.string().required(),
+  issueDate: joi.string().pattern(/^((0[1-9])|(1[0-2]))\/(\d{4})$/, { name: "issueDate" }).required(),
+  expirationDate: joi.string().pattern(/^((0[1-9])|(1[0-2]))\/(\d{4})$/, { name: "expirationDate" }).required(),
+  issuingBody: joi.string().required(),
+  type: joi.string().valid("RG", "CNH").required()
+});
+
+export { signUpSchema, signInSchema, newCredentialSchema, newNoteSchema, newCardSchema, newWifiSchema, newDocumentSchema};
