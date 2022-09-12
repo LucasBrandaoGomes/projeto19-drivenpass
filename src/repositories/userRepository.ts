@@ -1,7 +1,7 @@
 import { prisma } from "../database/database.js";
-import { IUser } from "../types/userTypes.js";
+import { Users } from "@prisma/client";
 
-export async function findUserByEmail(email:string) {
+export async function findUserByEmail(email:string): Promise < Users | null> {
    return await prisma.users.findUnique({where: {email:email}})
 }
 
