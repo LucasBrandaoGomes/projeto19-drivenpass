@@ -10,6 +10,7 @@
     "start": "node dist/src/index.js",
     "dev": "nodemon src/index.ts"
   },
+  "engines": {"node": "16.x"},
   "keywords": [],
   "author": "",
   "license": "ISC",
